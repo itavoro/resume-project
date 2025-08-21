@@ -5,15 +5,16 @@
 }
 
 #first-page-container {
-    background: linear-gradient(45deg,rgb(0, 255, 119) 0%, rgb(94, 0, 144) 100%);
+    background: linear-gradient(45deg,rgb(185, 0, 222) 20%, rgb(91, 0, 133) 100%);
     background-size: 200% 100%;
     animation: moveGradient 7s ease-in-out infinite alternate;
 }
 
-#title {
+#title, #introduction {
     box-shadow: -10px 10px 0 rgb(67, 20, 110);
+    transition: transform 500ms ease;
 }
 
-#introduction {
-    box-shadow: -10px 10px 0 rgb(67, 20, 110);
+#title:hover, #introduction:hover {
+    transform: translateX(10px);
 }
