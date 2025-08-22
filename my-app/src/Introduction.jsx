@@ -1,15 +1,16 @@
+import { regularBackground } from "./main";
 export default function Introduction () {
     function BulletPoint (props) {
         return (
             <li className={props.tailwind.li}>
-                <img src={new URL(props.img, import.meta.url).href} alt="" className={props.tailwind.img} />
+                <img src={new URL(props.img, import.meta.url).href} alt="" className={`${props.tailwind.img} bullet-point-icon`} />
                 <span>{props.text}</span>
             </li>
         );
     }
 
     return (
-          <ul id="introduction" className="my-10 ml-10 text-left bg-gradient-to-l from-purple-800  to-purple-500 px-8 py-4 rounded-3xl text-xl text-white">
+          <ul id="introduction" className={`my-10 ml-15 text-left bg-black px-8 py-4 rounded-3xl text-xl text-white`}>
                 <BulletPoint
                     img="./assets/Bullet Points/alt-battery-0-svgrepo-com.svg"
                     text="Customizable Based on Your Criteria"
@@ -20,7 +21,7 @@ export default function Introduction () {
                 />
                 <BulletPoint
                     img="./assets/Bullet Points/alt-battery-2-svgrepo-com.svg"
-                    text="Provides Accurate Sorting in Real Time Using Artificial Intelligence"
+                    text="Sorts in Real Time Using Artificial Intelligence"
                     tailwind={{
                         li: "flex items-start gap-3",
                         img: "w-6 h-6 mt-1"
@@ -28,7 +29,7 @@ export default function Introduction () {
                 />
                 <BulletPoint
                     img="./assets/Bullet Points/alt-battery-3-svgrepo-com.svg"
-                    text="Answers Questions and Provides Summaries of Resumes"
+                    text="Answers Questions and Summarizes Key Points"
                     tailwind={{
                         li: "flex items-start gap-3",
                         img: "w-6 h-6 mt-1"
