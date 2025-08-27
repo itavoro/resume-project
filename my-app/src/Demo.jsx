@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 function Button (props) {    
     if (props.isVisible) {
@@ -9,10 +9,10 @@ function Button (props) {
                 transition: 'opacity 0.3s ease-out, transform 0.3s ease-out',
                 fontSize: props.fontSize,
                 padding: props.padding,
-                height:props.height
+                height: props.height,
             }} 
-            onClick={props.onClick} id="demoButton" 
-            className={`items-center flex w-auto rounded-[50px] border-3 border-green-500`}>
+            onClick={props.onClick} id="demoButton"
+            className={`items-center flex w-fit rounded-[50px] border-3 border-green-500`}>
                 <p id="demoText" className="text-center text-green-500 justify-center items">
                     {props.text}
                 </p>
@@ -32,17 +32,24 @@ function UploadText (props) {
 }
 
 export default function Demo () {
-    const [uploadTextIsVisible, uploadTextSetIsVisible] = useState(false)
-    const [buttonIsVisible, setIsVisible] = useState(true);
-    const [buttonIsAnimating, setIsAnimating] = useState(false);
+    const [uploadTextIsVisible, setUploadTextIsVisible] = useState(false);
+    const [demoButtonIsVisible, setDemoButtonIsVisible] = useState(true);
+    const [demoButtonIsAnimating, setDemoButtonIsAnimating] = useState(false);
+    const [uploadButtonIsVisible, setUploadButtonIsVisible] = useState(false);
+    const uploadInputRef = useRef(null)
 
-    const handleClick = () => {
-        setIsAnimating(true);
+    const handleDemoButtonClick = () => {
+        setDemoButtonIsAnimating(true);
         setTimeout(() => {
-            setIsVisible(false);
-            uploadTextSetIsVisible(true);
+            setDemoButtonIsVisible(false);
+            setUploadTextIsVisible(true);
+            setUploadButtonIsVisible(true);
         }, 400)
     };
+
+    const handleUploadClickButton = () => {
+        uploadInputRef.current.click();
+    }
 
     return (   
         <div className="bg-black z-50 h-120 w-170 mt-43 ml-30 flex justify-center items-center">
@@ -51,16 +58,32 @@ export default function Demo () {
                 fontSize='40px'
                 padding='30px'
                 height='10px'
-                isVisible={buttonIsVisible}
-                isAnimating={buttonIsAnimating}
-                onClick={handleClick}
+                isVisible={demoButtonIsVisible}
+                isAnimating={demoButtonIsAnimating}
+                onClick={handleDemoButtonClick}
             />
-            <UploadText 
-                isVisible={uploadTextIsVisible}
-                text="Upload as many resumes as you'd like. The software will take your
-                criteria and rank the resumes in accordance to your preferences."
-                fontSize='30px'
-            />
+            <div className='flex flex-col gap-5'>
+                <UploadText 
+                    isVisible={uploadTextIsVisible}
+                    text="Upload as many resumes as you'd like. The software will take your
+                    criteria and rank the resumes in accordance to your preferences."
+                    fontSize='30px'
+                />
+                <input 
+                    type='file'
+                    style={{display: 'none'}}
+                    ref={uploadInputRef}
+                    accept='.pdf,.doc,.docx,.txt'>
+                </input>
+                <Button 
+                    text='Select Resumes'
+                    fontSize='30px'
+                    padding='30px'
+                    height='10px'
+                    isVisible={uploadButtonIsVisible}
+                    onClick={handleUploadClickButton}
+                />
+            </div>
         </div>
     )
 }
