@@ -20,9 +20,9 @@
     transform: translateX(10px);
 }
 
-#demoButton:hover {
+#demoButton:hover, #button:hover {
     background-color: rgb(34, 197, 94);
-    #demoText {
+    #demoText, #buttonText {
         color: black;
     }
 }

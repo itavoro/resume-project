@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-function Button (props) {    
+function DemoButton (props) {    
     if (props.isVisible) {
             return (
             <button style={{
@@ -21,10 +21,36 @@ function Button (props) {
     }
 }
 
+function Button (props) {
+    if (props.isVisible) {
+        return (
+            <button style= {{
+                fontSize: props.fontSize,
+                opacity: props.isAnimating ? 1 : 0,
+                transition: 'opacity 0.3s ease-out',
+                fontSize: props.fontSize,
+                padding: props.padding,
+                height: props.height,
+                }} 
+                onClick={props.onClick} id="button"
+                className={`items-center flex w-fit rounded-[50px] border-3 border-green-500`}>
+                <p id="buttonText" className="text-center text-green-500 justify-center items">
+                    {props.text}
+                </p>
+            </button>
+        )
+    }
+}
+
 function UploadText (props) {
     if (props.isVisible) {
         return (
-            <p style= {{fontSize: props.fontSize}} id='uploadText' className='z-50 text-green-500 max-w-140'> 
+            <p style= {{
+                fontSize: props.fontSize,
+                opacity: props.isAnimating ? 1 : 0,
+                transition: 'opacity 0.3s ease-out'
+                }} 
+                id='uploadText' className='z-50 text-green-500 max-w-140'> 
                 {props.text}
             </p>
         )
@@ -36,14 +62,20 @@ export default function Demo () {
     const [demoButtonIsVisible, setDemoButtonIsVisible] = useState(true);
     const [demoButtonIsAnimating, setDemoButtonIsAnimating] = useState(false);
     const [uploadButtonIsVisible, setUploadButtonIsVisible] = useState(false);
+    const [uploadButtonIsAnimating, setUploadButtonIsAnimating] = useState(false)
+    const [uploadTextIsAnimating, setUploadTextIsAnimating] = useState(false);
     const uploadInputRef = useRef(null)
 
     const handleDemoButtonClick = () => {
         setDemoButtonIsAnimating(true);
         setTimeout(() => {
-            setDemoButtonIsVisible(false);
             setUploadTextIsVisible(true);
             setUploadButtonIsVisible(true);
+        }, 300)
+        setTimeout(() => {
+            setDemoButtonIsVisible(false);
+            setUploadTextIsAnimating(true);
+            setUploadButtonIsAnimating(true)
         }, 400)
     };
 
@@ -53,7 +85,7 @@ export default function Demo () {
 
     return (   
         <div className="bg-black z-50 h-120 w-170 mt-43 ml-30 flex justify-center items-center">
-            <Button 
+            <DemoButton 
                 text='Click for Demo'
                 fontSize='40px'
                 padding='30px'
@@ -65,6 +97,7 @@ export default function Demo () {
             <div className='flex flex-col gap-5'>
                 <UploadText 
                     isVisible={uploadTextIsVisible}
+                    isAnimating={uploadTextIsAnimating}
                     text="Upload as many resumes as you'd like. The software will take your
                     criteria and rank the resumes in accordance to your preferences."
                     fontSize='30px'
@@ -81,6 +114,7 @@ export default function Demo () {
                     padding='30px'
                     height='10px'
                     isVisible={uploadButtonIsVisible}
+                    isAnimating = {uploadButtonIsAnimating}
                     onClick={handleUploadClickButton}
                 />
             </div>
